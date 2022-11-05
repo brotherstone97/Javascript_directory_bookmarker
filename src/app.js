@@ -127,7 +127,6 @@ program
     .parse()
 
 const options = program.opts();
-console.log(options)
 if (options.list) {
     printBookmarksList();
 }
