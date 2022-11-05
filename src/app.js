@@ -1,10 +1,67 @@
 #!/usr/bin/env node
 const {program} = require('commander');
+const fs = require('fs');
+const readline = require('readline');
+const {stdin: input, stdout: output} = require('process');
 
+const rl = readline.createInterface({input, output});
 program.version("0.0.1");
 
+
+const addBookmarks = (title, contents) => {
+    isExistDir("./bookmarks")
+
+    //중복체크
+    const isExist = fs.existsSync(`./bookmarks/${title}.txt`)
+    if (isExist) {
+        if (!isOverWriting()) {
+            return;
+        }
+    }
+    //bookmarks에 저장
+    const savePath = `./bookmarks/${title}.txt`;
+    fs.writeFile(savePath, contents, err => {
+        if (err) {
+            throw err;
+        }
+        console.log("저장되었습니다.");
+        rl.close()
+    });
+}
+
+//파일 중복체크 후 덮어씌우기 여부 결정(미완성)
+let isOverWriting = () => {
+    let answer;
+    rl.question("이미 같은 이름의 즐겨찾기가 존재합니다. 덮어씌우겠습니까? (Y/[N])", _answer => {
+        answer = _answer;
+    });
+    if (answer === 'Y' || answer === 'y') {
+        rl.close();
+        return true;
+    }
+    if (answer === 'N' || answer === 'n' || answer === '') {
+        rl.close();
+        return false;
+    } else {
+        console.log("잘못된 입력입니다.")
+        rl.close();
+        return false;
+    }
+}
+//디렉토리 유무 체크
+const isExistDir = (dir) => {
+    const isExist = fs.existsSync(dir);
+    if (!isExist) {
+        fs.mkdirSync(dir)
+    }
+}
+
 program
-    .option('-a, --add','add a bookmark')
+    .option('-a, --add <ohs...>', 'add a bookmark')
     .parse()
 
-console.log(program.opts());
+const options = program.opts();
+const title = options['add'][1];
+const path = options['add'][0];
+
+addBookmarks(title, path)
