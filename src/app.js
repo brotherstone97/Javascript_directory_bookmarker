@@ -74,7 +74,7 @@ const printBookmarksList = () => {
 }
 
 const deleteBookmark = title => {
-    fs.unlink(`./bookmarks/${title}`, err => {
+    fs.unlink(`./bookmarks/${title}.txt`, err => {
         if (err) {
             throw err;
         }
