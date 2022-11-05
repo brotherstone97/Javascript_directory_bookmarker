@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 const {program} = require('commander');
 const fs = require('fs');
 const readline = require('readline');
@@ -73,9 +72,21 @@ const printBookmarksList = () => {
     })
 }
 
+const deleteBookmark = (title) => {
+
+    fs.unlink(`./bookmarks/${title}`, err => {
+        if (err){
+            throw err;
+        }
+        console.log("삭제되었습니다.")
+    })
+}
+
+
 program
     .option('-a, --add <ohs...>', 'add a bookmark')
     .option('-l, --list', 'print bookmark list')
+    .option('-d, --delete', 'delete the bookmark')
     .parse()
 
 const options = program.opts();
