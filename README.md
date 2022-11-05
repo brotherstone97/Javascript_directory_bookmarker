@@ -8,11 +8,15 @@
   -     $node ./app.js --list
 
 - **등록된 즐겨찾기 삭제 (-d, --delete)**
-  -     $node ./app.js -d mydocs
+  - 한개의 즐겨찾기 삭제
+    -     $node ./app.js -d mydocs
+  - 여러개의 즐겨찾기 삭제
+
+    -     $node ./app.js -d mydocs mydocs2
   
 - **등록된 즐겨찾기 이름 변경 (-u, --update)**
   - mydocs -> yourdocs
-  -     $node ./app.js -d mydocs yourdocs
+  -     $node ./app.js -u mydocs yourdocs
 
 - **등록된 즐겨찾기의 경로로 이동**
   -     $node ./app.js mydocs
