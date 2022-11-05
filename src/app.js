@@ -104,15 +104,36 @@ const editBookmarks = (title, newContents) => {
 }
 
 program
-    .option('-a, --add <ohs...>', 'add a bookmark')
+    .option('-a, --add <title...> <path...>', 'add a bookmark')
     .option('-l, --list', 'print bookmark list')
-    .option('-d, --delete', 'delete the bookmark')
-    .option('-r, --rename', 'rename the bookmark')
-    .option('-e, --edit', 'edit the bookmark')
+    .option('-d, --delete <title...>', 'delete the bookmark')
+    .option('-r, --rename <oldTitle...> <newTitle...>', 'rename the bookmark')
+    .option('-e, --edit <title...> <newPath...>', 'edit the bookmark')
     .parse()
 
 const options = program.opts();
-const title = options['add'][1];
-const path = options['add'][0];
+console.log(options)
+if (options.list) {
+    printBookmarksList();
+}
+if (options.add) {
+    const title = options['add'][1];
+    const path = options['add'][0];
+    addBookmarks(title, path);
+}
+if (options.delete) {
+    const title = options['delete'][0];
+    deleteBookmark(title);
+}
+if (options.rename) {
+    const oldTitle = options['add'][0];
+    const newTitle = options['add'][1];
+    renameBookmarks(oldTitle, newTitle)
+}
+if (options.edit) {
+    const title = options['add'][0];
+    const newPath = options['add'][1];
+    editBookmarks(title, newPath);
+}
 
-addBookmarks(title, path)
+
