@@ -90,12 +90,23 @@ const renameBookmarks = (oldTitle, newTitle) => {
     });
 
 }
+const editBookmarks = (title, newContents) => {
+    const savePath = `./bookmarks/${title}.txt`;
+    fs.writeFile(savePath, newContents, err => {
+        if (err) {
+            throw err;
+        }
+        console.log("수정되었습니다.");
+        rl.close()
+    });
+}
 
 program
     .option('-a, --add <ohs...>', 'add a bookmark')
     .option('-l, --list', 'print bookmark list')
     .option('-d, --delete', 'delete the bookmark')
-    .option('-r, --rename', 'edit the bookmark')
+    .option('-r, --rename', 'rename the bookmark')
+    .option('-e, --edit', 'edit the bookmark')
     .parse()
 
 const options = program.opts();
