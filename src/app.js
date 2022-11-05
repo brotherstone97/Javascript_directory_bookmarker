@@ -2,6 +2,7 @@ const {program} = require('commander');
 const fs = require('fs');
 const readline = require('readline');
 const {stdin: input, stdout: output} = require('process');
+const {exec} = require("child_process");
 
 program.version("0.0.1");
 
@@ -103,12 +104,26 @@ const editBookmarks = (title, newContents) => {
     });
 }
 
+const moveBookmarkPath = title => {
+    let path;
+    fs.readFile(`./bookmarks/${title}.txt`, "utf-8", (err, data) => {
+        if (err) {
+            throw err;
+        }
+        path = data
+        console.log(`${path}로 이동합니다.`);
+        exec(`explorer.exe ${path}`);
+    });
+
+}
+
 program
     .option('-a, --add <title...> <path...>', 'add a bookmark')
     .option('-l, --list', 'print bookmark list')
     .option('-d, --delete <title...>', 'delete the bookmark')
     .option('-r, --rename <oldTitle...> <newTitle...>', 'rename the bookmark')
     .option('-e, --edit <title...> <newPath...>', 'edit the bookmark')
+    .option('-m, --move <title...>', 'move the bookmark path')
     .parse()
 
 const options = program.opts();
@@ -134,6 +149,10 @@ if (options.edit) {
     const title = options['add'][0];
     const newPath = options['add'][1];
     editBookmarks(title, newPath);
+}
+if (options.move) {
+    const title = options['move'][0];
+    moveBookmarkPath(title);
 }
 
 
