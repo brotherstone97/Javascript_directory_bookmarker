@@ -56,8 +56,26 @@ const isExistDir = (dir) => {
     }
 }
 
+
+const printBookmarksList = () => {
+    isExistDir("./bookmarks")
+    fs.readdir('./bookmarks', (err, bookmarkList) => {
+        if (err) {
+            throw err;
+        }
+        if (!bookmarkList.length) {
+            console.log("추가된 즐겨찾기가 없습니다.")
+        }
+        for (i = 0; i < bookmarkList.length; i++) {
+            console.log(bookmarkList[i])
+        }
+        rl.close()
+    })
+}
+
 program
     .option('-a, --add <ohs...>', 'add a bookmark')
+    .option('-l, --list', 'print bookmark list')
     .parse()
 
 const options = program.opts();
