@@ -73,12 +73,12 @@ const printBookmarksList = () => {
 }
 
 const deleteBookmark = title => {
-
     fs.unlink(`./bookmarks/${title}`, err => {
         if (err) {
             throw err;
         }
         console.log("삭제되었습니다.")
+        rl.close()
     })
 }
 
@@ -87,6 +87,8 @@ const renameBookmarks = (oldTitle, newTitle) => {
         if (err) {
             throw err;
         }
+        console.log("이름이 변경되었습니다.");
+        rl.close()
     });
 
 }
