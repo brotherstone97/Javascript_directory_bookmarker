@@ -84,7 +84,7 @@ const deleteBookmark = title => {
 }
 
 const renameBookmarks = (oldTitle, newTitle) => {
-    fs.rename(`./bookmarks/${oldTitle}`, `./bookmarks/${newTitle}`, err => {
+    fs.rename(`./bookmarks/${oldTitle}.txt`, `./bookmarks/${newTitle}.txt`, err => {
         if (err) {
             throw err;
         }
@@ -132,8 +132,8 @@ if (options.list) {
     printBookmarksList();
 }
 if (options.add) {
-    const title = options['add'][1];
-    const path = options['add'][0];
+    const title = options['add'][0];
+    const path = options['add'][1];
     addBookmarks(title, path);
 }
 if (options.delete) {
@@ -141,13 +141,13 @@ if (options.delete) {
     deleteBookmark(title);
 }
 if (options.rename) {
-    const oldTitle = options['add'][0];
-    const newTitle = options['add'][1];
+    const oldTitle = options['rename'][0];
+    const newTitle = options['rename'][1];
     renameBookmarks(oldTitle, newTitle)
 }
 if (options.edit) {
-    const title = options['add'][0];
-    const newPath = options['add'][1];
+    const title = options['edit'][0];
+    const newPath = options['edit'][1];
     editBookmarks(title, newPath);
 }
 if (options.move) {
