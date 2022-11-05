@@ -39,7 +39,7 @@
 - **등록된 즐겨찾기 이름 변경 (-r, --rename)**
   - mydocs -> yourdocs
   -     $node ./app.js -r mydocs yourdocs
-  - 
+  
 - **등록된 즐겨찾기의 경로 변경 (-e, --edit)**
   -     $node ./app.js -u mydocs newPath
 
