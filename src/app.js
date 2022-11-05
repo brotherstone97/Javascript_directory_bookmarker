@@ -3,13 +3,11 @@ const fs = require('fs');
 const readline = require('readline');
 const {stdin: input, stdout: output} = require('process');
 
-const rl = readline.createInterface({input, output});
 program.version("0.0.1");
 
 
 const addBookmarks = (title, contents) => {
     isExistDir("./bookmarks")
-
     //중복체크
     const isExist = fs.existsSync(`./bookmarks/${title}.txt`)
     if (isExist) {
@@ -24,12 +22,14 @@ const addBookmarks = (title, contents) => {
             throw err;
         }
         console.log("저장되었습니다.");
-        rl.close()
+        // rl.close()
     });
 }
 
 //파일 중복체크 후 덮어씌우기 여부 결정(미완성)
 let isOverWriting = () => {
+    const rl = readline.createInterface({input, output});
+
     let answer;
     rl.question("이미 같은 이름의 즐겨찾기가 존재합니다. 덮어씌우겠습니까? (Y/[N])", _answer => {
         answer = _answer;
@@ -68,7 +68,7 @@ const printBookmarksList = () => {
         for (i = 0; i < bookmarkList.length; i++) {
             console.log(bookmarkList[i])
         }
-        rl.close()
+        // rl.close()
     })
 }
 
@@ -78,7 +78,7 @@ const deleteBookmark = title => {
             throw err;
         }
         console.log("삭제되었습니다.")
-        rl.close()
+        // rl.close()
     })
 }
 
@@ -88,7 +88,7 @@ const renameBookmarks = (oldTitle, newTitle) => {
             throw err;
         }
         console.log("이름이 변경되었습니다.");
-        rl.close()
+        // rl.close()
     });
 
 }
@@ -99,7 +99,7 @@ const editBookmarks = (title, newContents) => {
             throw err;
         }
         console.log("수정되었습니다.");
-        rl.close()
+        // rl.close()
     });
 }
 
