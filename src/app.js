@@ -72,21 +72,30 @@ const printBookmarksList = () => {
     })
 }
 
-const deleteBookmark = (title) => {
+const deleteBookmark = title => {
 
     fs.unlink(`./bookmarks/${title}`, err => {
-        if (err){
+        if (err) {
             throw err;
         }
         console.log("삭제되었습니다.")
     })
 }
 
+const renameBookmarks = (oldTitle, newTitle) => {
+    fs.rename(`./bookmarks/${oldTitle}`, `./bookmarks/${newTitle}`, err => {
+        if (err) {
+            throw err;
+        }
+    });
+
+}
 
 program
     .option('-a, --add <ohs...>', 'add a bookmark')
     .option('-l, --list', 'print bookmark list')
     .option('-d, --delete', 'delete the bookmark')
+    .option('-r, --rename', 'edit the bookmark')
     .parse()
 
 const options = program.opts();
